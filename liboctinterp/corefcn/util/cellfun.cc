@@ -1386,7 +1386,11 @@ arrayfun (@@str2num, [1234],
               for (int j = 0; j < nargin; j++)
                 {
                   if (mask[j])
-                    inputlist.xelem (j) = inputs[j].index_op (idx_list);
+                    inputlist.xelem (j)
+                      = (inputs[j].is_classdef_object ()
+                         ? inputs[j].single_subsref (idx_type,
+                                                     idx_list.front ())
+                         : inputs[j].index_op (idx_list));
                 }
 
               const octave_value_list y
@@ -1489,7 +1493,11 @@ arrayfun (@@str2num, [1234],
               for (int j = 0; j < nargin; j++)
                 {
                   if (mask[j])
-                    inputlist.xelem (j) = inputs[j].index_op (idx_list);
+                    inputlist.xelem (j)
+                      = (inputs[j].is_classdef_object ()
+                         ? inputs[j].single_subsref (idx_type,
+                                                     idx_list.front ())
+                         : inputs[j].index_op (idx_list));
                 }
 
               const octave_value_list y

@@ -3353,3 +3353,15 @@
 %! x = [class_empty_plain.empty(), class_empty_plain()];
 %! assert (class (x), "class_empty_plain");
 %! assert (size (x), [1, 1]);
+
+## arrayfun on an array of classdef objects (bug #68442)
+%!test <*68442>
+%! o1 = value_class ();
+%! o1.a = 1;
+%! o2 = value_class ();
+%! o2.a = 2;
+%! o3 = value_class ();
+%! o3.a = 3;
+%! obj = [o1, o2, o3];
+%! assert (arrayfun (@(x) x.a, obj), [1, 2, 3]);
+%! assert (arrayfun (@(x) x.a, obj, "UniformOutput", false), {1, 2, 3});
